@@ -10,7 +10,26 @@ rni arq.txt novo.txt # renomear um arquivo
 cp arq.txt c:\ # copiar arq para raiz  
 mv # mover arq  
 erase arq.txt # apagar  
-erase -force -Recurse pasta #apagar arq ou pasta na ignorância  
+erase -force -Recurse pasta #apagar arq ou pasta na ignorância   
+
+# Fazer backup dos drivers externos do computador, ou seja não inclui os drivers instalados pelo windows update!
+
+Export-WindowsDriver -Online -Destination C:\Drivers
+
+# Ver uma lista dos drivers exportados 
+
+$BackupDrivers = Export-WindowsDriver -Online -Destination C:\Drivers
+$BackupDrivers | Select-Object ClassName, ProviderName, Date, Version | Export-CSV C:\Drivers\lista.txt
+
+# Exibir algumas infos sobre o seu computador e também sobre a BIOS
+
+Get-WmiObject -Class Win32_ComputerSystem
+Get-WmiObject -Class Win32_BIOS -ComputerName .
+
+# Listar os 5 processos comedores de RAM
+
+ps | sort –p ws | select –last 5
+
 
 # Adcionar programas e recursos:  
 
